@@ -1,22 +1,37 @@
 import turtle
+import random
+
 
 win = turtle.Screen()
 win.tracer(0)
 
 #Creating our jet
 
-t = turtle.Turtle()
-t.shape("triangle")
-t.color("blue")
-t.shapesize(2,2)
-t.up()
-t.goto(0,-200)
+jet = turtle.Turtle()
+jet.shape("triangle")
+jet.color("blue")
+jet.shapesize(1.5,1.5)
+jet.up()
+jet.goto(0,-200)
+
+
+jetspeed  = 0.3
+
+# Creating our enemy 
+
+enemy = turtle.Turtle()
+enemy.shape("circle")
+enemy.color("red")
+enemy.up()
+
+enemy.goto(random.randint(-280,280),random.randint(-280,280))
+
 
 def moveleft():
-    t.left(15)
+    jet.left(15)
 
 def moveright():
-    t.right(15)
+    jet.right(15)
 
 win.listen()
 win.onkeypress(moveleft,"Left")
@@ -26,4 +41,11 @@ while True:
     win.update()
 
     # move out jet
-    t.fd(0.1)
+    jet.fd(jetspeed)
+
+    #enemy and jet collision 
+
+    if jet.distance(enemy) < 15:
+        enemy.goto(random.randint(-280,280),random.randint(-280,280))
+
+
